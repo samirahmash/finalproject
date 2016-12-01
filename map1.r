@@ -5,27 +5,24 @@ library(plotly)
 library(dplyr)
 
 # source data from data folder
-ilo.data <- read.csv("~/Documents/GitHub/finalproject/data/ilodata.csv")
 
 # source script from Nathan's to retrieve refined data table
-source('~/Documents/GitHub/finalproject/datafunctions.R')
 
 # create a more concise data table to use info for map
 
 
 # shows interactive map
-WorldMap <- function(urbvar, gender, age) {
-  mapping.data <- FilterMapData(urbvar, gender, age)
-  mapping.data$hover <- with(mapping.data, paste("Country:", Country_Label, '<br>', 
-                                                 "Year:", Time, '<br>',
-                                                 "Percentage Unemployed:", Obs_Value))
-  #single.country.row <- filter(mapping.data, Country_Label == country.name)
-  newly.created.map <- mapping.data %>% 
+WorldMap <- function(df) {
+  df$hover <- with(df, paste("Country:", df$Country_Label, '<br>', 
+                                                 "Year:", df$Time, '<br>',
+                                                 "Percentage Unemployed:", df$Obs_Value))
+  newly.created.map <- df %>% 
     plot_ly(type = 'choropleth', 
             locations = ~Country_Code,
             locationmode = "world",
             colors = "Purples",
-            z = ~Obs_Value) %>%
+            z = ~Obs_Value,
+            text = ~hover) %>%
     colorbar(title = "Percentage of Workforce Unemployed") %>%
     layout(
       title = "Unemployment Rates Around the World",

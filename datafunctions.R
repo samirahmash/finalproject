@@ -1,7 +1,7 @@
 # data from International Labor Organization on unemployment from 1990 to 2015, 
 # broken down by country, gender, age group, urban/rural, year
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
-data <- read.csv("~/Documents/GitHub/finalproject/data/ilodata.csv")
+data <- read.csv("./data/ilodata.csv")
 
 
 # load packages
@@ -17,12 +17,13 @@ only.countries <- select(data, Country_Label) %>%
   unique()
 
 # filter down results to both sexes, urban and rural, all ages, and latest year data was collected
-FilterMapData <- function(urbvar, gender, age) {
-  mapping.data <- filter(short.data, Classif2_Item_Label == urbvar) %>% 
-    filter(Sex_Item_Label == gender) %>%
-    filter(Classif1_Item_Label == age) %>% 
+FilterMapData <- function(urbvar, gender, start.year, end.year) {
+
+  mapping.data <- short.data %>% subset(Classif2_Item_Label %in% urbvar) %>% 
+    subset(Sex_Item_Label %in% gender) %>%
     group_by(Country_Label) %>% 
-    filter(Time == max(Time))
+    filter(Time > start.year - 1) %>%
+    filter(Time < end.year + 1)
   mapping.data <- mapping.data[!duplicated(mapping.data), ]
   return (mapping.data)
 }
