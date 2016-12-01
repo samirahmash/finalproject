@@ -18,7 +18,9 @@ shinyUI(fluidPage(
                   selected = 'red')
     ),
     mainPanel(
-      plotlyOutput("WorldMap")
+      tabsetPanel(
+        tabPanel("Map", plotlyOutput("worldMap")) 
+      )
     )
   )
 )
