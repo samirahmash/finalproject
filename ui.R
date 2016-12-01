@@ -1,21 +1,27 @@
 library(shiny)
-library(plotly)
-
-source('./scripts/')
+source('./datafunctions.R')
 
 shinyUI(fluidPage(
   titlePanel("International Labor Organization - Visualized"),
   sidebarLayout(
     sidebarPanel(
-      radioButtons("radio", label = h3("Gender"), 
-                   choices = list("Females" = 'Female', "Males" = 'Male',
+      checkboxGroupInput("checkGroup","Gender", 
+                   choices = list("Female" = 'Female',
+                                  "Male" = 'Male',
                                   "Total" = 'Total'),
-                   selected = "total"),
+                   selected = 'Total'),
       
-      #  Adds the choice of color selection to the graph for aesthetic effect
-      selectInput("select", label = h3("Select a Country"), 
-                  choices = list(), 
-                  selected = 'red')
+      checkboxGroupInput("checkGroup2", "Area",
+                    choices = list("Rural" = 'Rural',
+                                   "Urban" = 'Urban', 
+                                   "Total" = 'Total'),
+                    selected = 'Total'),
+    
+      sliderInput("slider2", "Slider Range", 
+                  min = min(short.data$Time), 
+                  max = max(short.data$Time), 
+                  value = c(1995,2000)
+                  )
     ),
     mainPanel(
       tabsetPanel(
