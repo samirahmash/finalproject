@@ -13,8 +13,8 @@ data <- filter(data, !is.na(Obs_Value))
 # pare down columns in dataframe to just country, sex, age, urban status, year, and unemployment
 short.data <- select(data, Country_Label, Country_Code, Sex_Item_Label, 
                      Classif1_Item_Label, Classif2_Item_Label, Time, Obs_Value)
-only.countries <- select(data, Country_Label) %>%
-  unique()
+only.countries <- select(data, Country_Label) %>% unique()
+only.ages <- select(data, Classif1_Item_Label) %>% unique()
 
 # filter down results to both sexes, urban and rural, all ages, and latest year data was collected
 FilterMapData <- function(urbvar, gender, start.year, end.year) {

@@ -21,9 +21,10 @@ WorldMap <- function(df) {
             locations = ~Country_Code,
             locationmode = "world",
             colors = "Purples",
-            z = ~mean.observations,
-            text = ~hover) %>%
-    colorbar(title = "Percentage of Workforce Unemployed") %>%
+            z = ~mean.observations
+            #text = ~hover
+            ) %>%
+    #colorbar(title = "Percentage of Workforce Unemployed")
     layout(
       title = "Unemployment Rates Around the World",
       geo = list(scope = "world")
