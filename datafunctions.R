@@ -8,7 +8,7 @@ data <- read.csv("~/Documents/GitHub/finalproject/data/ilodata.csv")
 library(dplyr)
 
 # pare down columns in dataframe to just country, sex, age, urban status, year, and unemployment
-short.data <- select(data, Country_Label, Sex_Item_Label, 
+short.data <- select(data, Country_Label, Country_Code, Sex_Item_Label, 
                      Classif1_Item_Label, Classif2_Item_Label, Time, Obs_Value)
 
 

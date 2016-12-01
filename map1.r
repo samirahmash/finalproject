@@ -16,19 +16,18 @@ mapping.data$hover <- with(mapping.data, paste("Country:", Country_Label, '<br>'
                                              "Percentage Unemployed:", Obs_Value))
 
 # shows interactive map
-WorldMap <- function(country.name) {
-  single.country.row <- filter(mapping.data, Country_Label == country.name)
-  newly.created.map <- plot_ly(single.country.row, locationmode = "world", type = "choropleth") %>%
-    add_trace(
-      z = ~Obs_Value,
-      text = ~single.country.row$hover,
-      locations = ~Country_Label,
-      color = ~Obs_Value, 
-      colors = 'Reds'
-      ) %>% 
+WorldMap <- function() {
+  #single.country.row <- filter(mapping.data, Country_Label == country.name)
+  newly.created.map <- mapping.data %>% plot_ly(type = 'choropleth', 
+                                                locations = ~Country_Code,
+                                                locationmode = "world",
+                                                colorscale = "Purples",
+                                                z = ~Obs_Value
+                                                ) %>%
+    colorbar(title = "Percentage of Workforce Unemployed") %>%
     layout(
-      title = 'Unemployment Rates Around the World',
-           geo = list(scope = 'world')
+      title = "Unemployment Rates Around the World",
+      geo = list(scope = "world")
       )
     
   return(newly.created.map)
