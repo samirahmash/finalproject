@@ -2,7 +2,6 @@
 # broken down by country, gender, age group, urban/rural, year
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
 data <- read.csv("~/Documents/GitHub/finalproject/data/ilodata.csv")
-data <- read.csv("/Users/nathanbombardier/Documents/School/Fall2016/INFO201/finalproject/data/ilodata.csv")
 
 
 # load packages
