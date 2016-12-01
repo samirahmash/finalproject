@@ -11,19 +11,21 @@ ilo.data <- read.csv("~/Documents/GitHub/finalproject/data/ilodata.csv")
 source('~/Documents/GitHub/finalproject/datafunctions.R')
 
 # create a more concise data table to use info for map
-mapping.data$hover <- with(mapping.data, paste("Country:", Country_Label, '<br>', 
-                                             "Year:", Time, '<br>',
-                                             "Percentage Unemployed:", Obs_Value))
+
 
 # shows interactive map
-WorldMap <- function() {
+WorldMap <- function(urbvar, gender, age) {
+  mapping.data <- FilterMapData(urbvar, gender, age)
+  mapping.data$hover <- with(mapping.data, paste("Country:", Country_Label, '<br>', 
+                                                 "Year:", Time, '<br>',
+                                                 "Percentage Unemployed:", Obs_Value))
   #single.country.row <- filter(mapping.data, Country_Label == country.name)
-  newly.created.map <- mapping.data %>% plot_ly(type = 'choropleth', 
-                                                locations = ~Country_Code,
-                                                locationmode = "world",
-                                                colorscale = "Purples",
-                                                z = ~Obs_Value
-                                                ) %>%
+  newly.created.map <- mapping.data %>% 
+    plot_ly(type = 'choropleth', 
+            locations = ~Country_Code,
+            locationmode = "world",
+            colors = "Purples",
+            z = ~Obs_Value) %>%
     colorbar(title = "Percentage of Workforce Unemployed") %>%
     layout(
       title = "Unemployment Rates Around the World",
