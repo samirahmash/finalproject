@@ -5,3 +5,9 @@
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
 data <- read.csv("/Users/nathanbombardier/Documents/School/Fall2016/INFO201/finalproject/data/ilodata.csv")
 
+shinyServer(function(input, output) { 
+  # Render a plotly object that returns your scatter on the UI's radio button and select indicator
+  output$scatter <- renderPlotly({
+    return(WorldMap(a,b,c))
+  })
+})
