@@ -21,9 +21,11 @@ FilterMapData <- function(urbvar, gender, start.year, end.year) {
 
   mapping.data <- short.data %>% subset(Classif2_Item_Label %in% urbvar) %>% 
     subset(Sex_Item_Label %in% gender) %>%
-    group_by(Country_Label) %>% 
+    group_by(Country_Code) %>% 
     filter(Time > start.year - 1) %>%
-    filter(Time < end.year + 1)
+    filter(Time < end.year + 1) %>%
+    summarise(occurrences = n(),
+           mean.observations = mean(Obs_Value))
   mapping.data <- mapping.data[!duplicated(mapping.data), ]
   return (mapping.data)
 }
