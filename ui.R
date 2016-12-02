@@ -1,5 +1,6 @@
 library(shiny)
 source('./datafunctions.R')
+source('./Scripts/buildScatter.R')
 
 shinyUI(fluidPage(
   titlePanel("International Labor Organization - Visualized"),
@@ -23,11 +24,19 @@ shinyUI(fluidPage(
                   value = c(1995,2000)
                   )
     ),
+    titlePanel('Countries'),
+    sidebarLayout(
+      sidebarPanel(
+        
+        selectInput("select", label = "Country", choices = list(only.countries), selected = 'Afghanistan')
+      ),
     mainPanel(
       tabsetPanel(
-        tabPanel("Map", plotlyOutput("worldMap")) 
+        tabPanel("Map", plotlyOutput("worldMap")),
+        tabPanel("Country", plotlyOutput("BuildCountryChart"))
       )
     )
   )
+)
 )
 )

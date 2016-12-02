@@ -12,6 +12,7 @@ data <- read.csv("./data/ilodata.csv")
 
 source('./map1.r')
 source('./datafunctions.R')
+source('./scripts/buildScatter.r')
 
 shinyServer(function(input, output) { 
   # Render a plotly object that returns your scatter on the UI's radio button and select indicator
@@ -23,5 +24,8 @@ shinyServer(function(input, output) {
                     input$slider2[2])
       )
       )
+  })
+  output$BuildScatter <- renderPlot({
+    return(BuildScatter(FilterScatterCountry(input$country), input$xcol, input$ycol))
   })
 })
