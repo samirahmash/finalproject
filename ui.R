@@ -1,5 +1,5 @@
 library(shiny)
-source('./datafunctions.R')
+source('./scripts/datafunctions.R')
 
 shinyUI(fluidPage(
   titlePanel("International Labor Organization - Visualized"),
@@ -12,10 +12,10 @@ shinyUI(fluidPage(
                    selected = 'Total'),
       
       radioButtons("radio2", "Area",
-                    choices = list("Rural" = 'Rural',
-                                   "Urban" = 'Urban', 
-                                   "Total" = 'Total'),
-                    selected = 'Total'),
+                    choices = list("Rural",
+                                   "Urban", 
+                                   "Total"),
+                    selected = "Total"),
     
       sliderInput("slider2", "Slider Range", 
                   min = min(short.data$Time), 
@@ -23,9 +23,8 @@ shinyUI(fluidPage(
                   value = c(1995,2000)
                   ),
       
-      selectInput("select", "Select an Age Range",
-                  choices = as.list(only.ages),
-                  select = "Total")
+      selectInput("select", label = h3("Select an Age Range"),
+                  choices = only.ages, selected = only.ages[1])
     ),
     mainPanel(
       plotlyOutput("WorldMap")

@@ -13,22 +13,17 @@ library(dplyr)
 
 # shows interactive map
 WorldMap <- function(df) {
-  df$hover <- with(df, paste("Country:", df$Country_Code, '<br>', 
-                             "Percentage Unemployed:", df$mean.observations, '<br>',
-                             "Total Years and Genders:", df$occurrences))
-  newly.created.map <- df %>% 
-    plot_ly(type = 'choropleth', 
+  return(plot_ly(df, type = 'choropleth', 
             locations = ~Country_Code,
             locationmode = "world",
             colors = "Purples",
-            z = ~mean.observations
-            #text = ~hover
+            z = ~mean.observations,
+            text = ~hover
             ) %>%
-    #colorbar(title = "Percentage of Workforce Unemployed")
+    colorbar(title = "Percentage of Workforce Unemployed") %>%
     layout(
       title = "Unemployment Rates Around the World",
       geo = list(scope = "world")
       )
-    
-  return(newly.created.map)
+  )
 }
