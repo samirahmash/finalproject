@@ -1,26 +1,33 @@
 library(shiny)
+library(plotly)
 source('./scripts/datafunctions.R')
+df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
+only.countries <- select(df, Country_Label) %>% unique()
+only.ages <- select(df, Classif1_Item_Label) %>% unique()
 shinyUI(fluidPage(
   titlePanel("International Labor Organization - Visualized"),
   sidebarLayout(
     sidebarPanel(
       radioButtons("radio1","Gender", 
-                   choices = list("Female" = 'Female',
-                                  "Male" = 'Male',
-                                  "Total" = 'Total'),
-                   selected = 'Total'),
+                   choices = list("Female",
+                                  "Male",
+                                  "Total"),
+                   selected = "Total"),
       
       radioButtons("radio2", "Area",
                     choices = list("Rural",
                                    "Urban", 
-                                   "Total"),
-                    selected = "Total"),
+                                   "National"),
+                    selected = "National"),
     
       sliderInput("slider2", "Slider Range", 
-                  min = min(short.data$Time), 
-                  max = max(short.data$Time), 
-                  value = c(1995,2000)
+                  min = min(df$Time), 
+                  max = max(df$Time), 
+                  value = c(1995,2000),
+                  round = TRUE,
+                  step = 1,
+                  animate = TRUE
                   ),
       
       selectInput("select", label = h3("Select an Age Range"),
