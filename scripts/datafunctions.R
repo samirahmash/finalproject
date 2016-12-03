@@ -34,6 +34,7 @@ FilterMapData <- function(urbvar, gender, start.year, end.year, age) {
                              "Age Range:", Classif1_Item_Label))
   return (mapping.data)
 }
+
 #mapping.data <- FilterMapData("National", "Total", "Total")
 # for some reason there are duplicates, this deals with that
 
