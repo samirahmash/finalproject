@@ -24,7 +24,7 @@ shinyUI(fluidPage(
       sliderInput("slider2", "Slider Range", 
                   min = min(df$Time), 
                   max = max(df$Time), 
-                  value = c(1995,2000),
+                  value = c(1995, 1996),
                   round = TRUE,
                   step = 1,
                   animate = TRUE
@@ -34,7 +34,8 @@ shinyUI(fluidPage(
                   choices = only.ages, selected = only.ages[1])
     ),
     mainPanel(
-      plotlyOutput("WorldMap")
+      textOutput("text1"),
+      plotlyOutput("GlobalMap")
     )
   )
 )

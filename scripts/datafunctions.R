@@ -22,10 +22,11 @@ FilterMapData <- function(df, urbvar, gender, start.year, end.year, age) {
            mean.observations = mean(Obs_Value))
   mapping.data <- mapping.data[!duplicated(mapping.data), ]
   mapping.data$hover <- with(mapping.data, paste("Country:", Country_Code, '<br>', 
-                             "Percentage Unemployed:", mean.observations, '<br>',
-                             "Total Years and Genders:", occurrences)
+                                                 "Percentage Unemployed:", mean.observations, '<br>',
+                                                 "Total Years and Genders:", occurrences)
                              )
   return (mapping.data)
+  
 }
 #mapping.data <- FilterMapData("National", "Total", "Total")
 # for some reason there are duplicates, this deals with that

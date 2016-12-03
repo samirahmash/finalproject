@@ -8,7 +8,8 @@ WorldMap <- function(df) {
             locations = ~Country_Code,
             locationmode = "world",
             colors = "Purples",
-            z = ~mean.observations,
+            z = if(nrow(df) >0) {
+               return(~mean.observations),
             text = ~hover
             ) %>%
     colorbar(title = "Percentage of Workforce Unemployed") %>%

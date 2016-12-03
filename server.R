@@ -11,16 +11,24 @@ df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 shinyServer(function(input, output) { 
   # Render a plotly object that returns your scatter on the UI's radio button and select indicator
-  output$WorldMap <- renderPlotly({
-      WorldMap(
-        FilterMapData(df,
-                      input$radio1, 
-                      input$radio2,
+  output$text1 <- renderText({
+    return(
+      paste(input$radio1, input$radio2,input$slider2[1], input$slider2[2], input$select)
+    )
+  })
+  output$GlobalMap <- renderPlotly({
+      return(
+        WorldMap(
+          FilterMapData(df,
+                      input$radio2, 
+                      input$radio1,
                       input$slider2[1],
                       input$slider2[2],
                       input$select
                       )
         )
+      )
       
   })
+  
 })
