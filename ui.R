@@ -42,7 +42,7 @@ shinyUI(fluidPage(
         )
       )
       ),
-    tabPanel("Internation Labor Scatterplot",
+    tabPanel("International Labor Scatterplot",
              sidebarLayout(
                sidebarPanel(
                  selectInput("select2", 
@@ -51,7 +51,7 @@ shinyUI(fluidPage(
                              selected = only.countries[1])
                ),
                mainPanel(
-                 plotlyOutput("PieChart")
+                 plotlyOutput("Scatter1")
                )
              )
              )

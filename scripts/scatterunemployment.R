@@ -15,10 +15,11 @@ UrbanRuralScatter <- function(df) {
       text = ~hover,
       type = "scatter",
       mode = "markers",
+      fillcolor = "Black",
       marker = list(size = 10,
-                    color = 'Gold',
+                    color = 'Red',
                     line = list(width = 2,
-                                color = 'Purple'))) %>% 
+                                color = 'White'))) %>% 
       layout(title = 'Comparing Urban and Rural Unemployment',
              yaxis = list(title = "Rural Unemployment",
                           zeroline = FALSE),
