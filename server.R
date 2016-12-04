@@ -6,6 +6,8 @@ library(dplyr)
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
 source('./scripts/map1.r')
 source('./scripts/datafunctions.R')
+source('./scripts/scatterunemployment.R')
+source('./scripts/scatterdata.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 
@@ -24,6 +26,18 @@ shinyServer(function(input, output) {
         )
       )
       
+  })
+  output$ComboUnemployment <- renderPlotly({
+    return(
+      UrbanRuralScatter(
+        UnemployedScatter(df,
+          input$slider2[1],
+          input$slider2[2],
+          input$radio1,
+          input$select
+        )
+      )
+    )
   })
   
 })

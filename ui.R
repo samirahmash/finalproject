@@ -37,7 +37,8 @@ shinyUI(fluidPage(
                       selected = only.ages[1])
         ),
         mainPanel(
-          plotlyOutput("GlobalMap")
+          plotlyOutput("GlobalMap"),
+          plotlyOutput("ComboUnemployment")
         )
       )
       ),
