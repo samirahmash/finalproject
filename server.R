@@ -14,16 +14,25 @@ source('./map1.r')
 source('./datafunctions.R')
 source('./scripts/buildScatter.r')
 
+source('./scripts/map1.r')
+source('./scripts/datafunctions.R')
+df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
+
 shinyServer(function(input, output) { 
   # Render a plotly object that returns your scatter on the UI's radio button and select indicator
-  output$WorldMap <- renderPlotly({
-    return(WorldMap(
-      FilterMapData(as.vector(input$checkGroup), 
-                    as.vector(input$checkGroup2), 
-                    input$slider2[1],
-                    input$slider2[2])
+  output$GlobalMap <- renderPlotly({
+      return(
+        WorldMap(
+          FilterMapData(df,
+                      input$radio2, 
+                      input$radio1,
+                      input$slider2[1],
+                      input$slider2[2],
+                      input$select
+                      )
+        )
       )
-      )
+      
   })
   output$BuildScatter <- renderPlot({
     return(BuildScatter(FilterScatterCountry(input$country), input$xcol, input$ycol))

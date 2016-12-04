@@ -1,0 +1,10 @@
+name: finalproject
+account: gebizar
+server: shinyapps.io
+appId: 141548
+bundleId: 632453
+url: https://gebizar.shinyapps.io/finalproject/
+when: 1480633461.26548
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: README.md
