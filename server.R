@@ -6,8 +6,17 @@ require(plotly)
 # data from International Labor Organization on unemployment from 1990 to 2015, 
 # broken down by country, gender, age group, urban/rural, year
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
-source('./scripts/map1.r')
-source('./scripts/datafunctions.R')
+
+library(rsconnect)
+
+
+
+data <- read.csv("./data/ilodata.csv")
+
+source('./map1.r')
+source('./datafunctions.R')
+source('./scripts/buildScatter.r')
+
 shinyServer(function(input, output) { 
   # Render a plotly object that returns your scatter on the UI's radio button and select indicator
   output$WorldMap <- renderPlotly({
@@ -19,5 +28,8 @@ shinyServer(function(input, output) {
                     input$select)
       )
       )
+  })
+  output$BuildScatter <- renderPlot({
+    return(BuildScatter(FilterScatterCountry(input$country), input$xcol, input$ycol))
   })
 })
