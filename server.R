@@ -8,6 +8,8 @@ source('./scripts/map1.r')
 source('./scripts/datafunctions.R')
 source('./scripts/scatterunemployment.R')
 source('./scripts/scatterdata.R')
+source('./scripts/piefunction.R')
+source('./scripts/piechartunemployment.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 
@@ -39,5 +41,15 @@ shinyServer(function(input, output) {
       )
     )
   })
-  
+  output$Bar1 <- renderPlotly({
+    return(
+      UnemploymentHist(
+        PieUnemployment(df,
+                        input$select2,
+                        input$radio3
+                         
+        )
+      )
+   )
+  })
 })

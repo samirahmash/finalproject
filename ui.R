@@ -50,8 +50,13 @@ shinyUI(fluidPage(
                              choices = only.countries, 
                              selected = only.countries[1])
                ),
+               radioButtons("radio3", "Area",
+                            choices = list("Rural",
+                                           "Urban", 
+                                           "National"),
+                            selected = "National"),
                mainPanel(
-                 plotlyOutput("Scatter1")
+                 plotlyOutput("Bar1")
                )
              )
              )
