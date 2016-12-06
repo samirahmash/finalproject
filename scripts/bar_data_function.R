@@ -1,7 +1,7 @@
 library(dplyr)
 
 # create function
-PieUnemployment <- function(df, country, geo.loc) {
+BarData <- function(df, country, geo.loc) {
   abridged.data <- filter(df, geo.loc == Classif2_Item_Label,
                           country == Country_Label) %>%
   group_by(Time) 

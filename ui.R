@@ -1,6 +1,5 @@
 library(shiny)
 library(plotly)
-source('./scripts/datafunctions.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 only.countries <- select(df, Country_Label) %>% unique()
@@ -42,24 +41,24 @@ shinyUI(fluidPage(
         )
       )
       ),
-    tabPanel("International Labor Scatterplot",
+    tabPanel("International Labor Grouped Bars by Country",
              sidebarLayout(
                sidebarPanel(
                  selectInput("select2", 
                              label = h3("Select a Country"),
                              choices = only.countries, 
-                             selected = only.countries[1])
-               ),
-               radioButtons("radio3", "Area",
-                            choices = list("Rural",
-                                           "Urban", 
-                                           "National"),
-                            selected = "National"),
-               mainPanel(
-                 plotlyOutput("Bar1")
+                             selected = only.countries[1]),
+                 radioButtons("radio3", "Area",
+                              choices = list("Rural",
+                                             "Urban", 
+                                             "National"),
+                              selected = "National")
+             ),
+             mainPanel(
+               plotlyOutput("Bar1")
                )
-             )
-             )
     )
+    )
+)
 )
 )

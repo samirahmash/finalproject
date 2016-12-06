@@ -4,12 +4,12 @@ library(dplyr)
 # data from International Labor Organization on unemployment from 1990 to 2015, 
 # broken down by country, gender, age group, urban/rural, year
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
-source('./scripts/map1.r')
-source('./scripts/datafunctions.R')
-source('./scripts/scatterunemployment.R')
-source('./scripts/scatterdata.R')
-source('./scripts/piefunction.R')
-source('./scripts/piechartunemployment.R')
+source('./scripts/choro_map_creation_function.R')
+source('./scripts/choro_map_data_function.R')
+source('./scripts/scatter1_creation_function.R')
+source('./scripts/scatter1_data_function.R')
+source('./scripts/bar_creation_function.R')
+source('./scripts/bar_data_function.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 
@@ -43,13 +43,12 @@ shinyServer(function(input, output) {
   })
   output$Bar1 <- renderPlotly({
     return(
-      UnemploymentHist(
-        PieUnemployment(df,
-                        input$select2,
-                        input$radio3
-                         
+      UnemploymentBar(
+        BarData(df,
+                input$select2,
+                input$radio3
         )
       )
-   )
+    )
   })
 })
