@@ -15,16 +15,20 @@ UrbanRuralScatter <- function(df) {
       text = ~hover,
       type = "scatter",
       mode = "markers",
+      fillcolor = "Black",
       marker = list(size = 10,
-                    color = 'Gold',
+                    color = 'Red',
                     line = list(width = 2,
-                                color = 'Purple'))) %>% 
+                                color = 'White'))) %>% 
       layout(title = 'Comparing Urban and Rural Unemployment',
              yaxis = list(title = "Rural Unemployment",
                           zeroline = FALSE),
              xaxis = list(title = "Urban Unemployement",
                           zeroline = FALSE)) %>% 
-    add_trace(x = df$urban.mean, y = df$urban.mean, mode = 'line')
-  )
+    add_trace(df, y = df$rural.mean, x = df$rural.mean, mode = 'lines')
+    
+    )
+  
 }
+
 

@@ -8,6 +8,10 @@ library(rsconnect)
 
 source('./scripts/map1.r')
 source('./scripts/datafunctions.R')
+source('./scripts/scatterunemployment.R')
+source('./scripts/scatterdata.R')
+source('./scripts/piefunction.R')
+source('./scripts/piechartunemployment.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 
@@ -27,8 +31,34 @@ shinyServer(function(input, output) {
       )
       
   })
-  output$BuildScatter <- renderPlot({
-    return(BuildScatter(FilterScatterCountry(input$country), input$xcol, input$ycol))
+# <<<<<<< HEAD
+#   output$BuildScatter <- renderPlot({
+#     return(BuildScatter(FilterScatterCountry(input$country), input$xcol, input$ycol))
+#   })
+# 
+# =======
+  output$ComboUnemployment <- renderPlotly({
+    return(
+      UrbanRuralScatter(
+        UnemployedScatter(df,
+          input$slider2[1],
+          input$slider2[2],
+          input$radio1,
+          input$select
+        )
+      )
+    )
   })
-
+  output$Bar1 <- renderPlotly({
+    return(
+      UnemploymentHist(
+        PieUnemployment(df,
+                        input$select2,
+                        input$radio3
+                         
+        )
+      )
+   )
+  })
+#>>>>>>> f462721ca299d37257af563bf8eda3c37b211b8c
 })

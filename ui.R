@@ -39,24 +39,27 @@ shinyUI(fluidPage(
                       selected = only.ages[1])
         ),
         mainPanel(
-          plotlyOutput("GlobalMap")
+          plotlyOutput("GlobalMap"),
+          plotlyOutput("ComboUnemployment")
         )
       )
       ),
-    tabPanel("Internation Labor Scatterplot",
+    tabPanel("International Labor Scatterplot",
              sidebarLayout(
                sidebarPanel(
                  selectInput("select2", 
                              label = h3("Select a Country"),
                              choices = only.countries, 
-                             selected = only.countries[1])
-               ),
+                             selected = only.countries[1]),
+               radioButtons("radio3", "Area",
+                            choices = list("Rural",
+                                           "Urban", 
+                                           "National"),
+                            selected = "National")),
                mainPanel(
-                 plotlyOutput("PieChart")
+                 plotlyOutput("Bar1")
                )
              )
-             )
+            )
     )
-)
-)
-
+))
