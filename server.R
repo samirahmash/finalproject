@@ -6,15 +6,63 @@ library(rsconnect)
 # broken down by country, gender, age group, urban/rural, year
 
 source('./scripts/buildScatter.r')
-source('./scripts/datafunctions.R')
-
+source('./scripts/line_graph_data_filter.R')
+source('./scripts/choro_map_creation_function.R')
+source('./scripts/choro_map_data_function.R')
+source('./scripts/scatter1_creation_function.R')
+source('./scripts/scatter1_data_function.R')
+source('./scripts/bar_creation_function.R')
+source('./scripts/bar_data_function.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
-# Creates a line graph of unemployment over time for each selected country in each selected region.
 shinyServer(function(input, output) { 
  
-  # Render a plotly object that returns your scatter on the UI's radio button and select indicator
+  # Creates a choropleth map that looks at the unemployment rates in each country.
+  output$GlobalMap <- renderPlotly({
+      return(
+        WorldMap(
+          FilterMapData(df,
+                      input$radio2, 
+                      input$radio1,
+                      input$slider2[1],
+                      input$slider2[2],
+                      input$select
+                      )
+        )
+      )
+  })
+  
+  # Plots a scatter that compares urban and rural unemployment rates
+  output$ComboUnemployment <- renderPlotly({
+    return(
+      UrbanRuralScatter(
+        UnemployedScatter(df,
+          input$slider2[1],
+          input$slider2[2],
+          input$radio1,
+          input$select
+        )
+      )
+    )
+  })
+  
+  # Creats a bar chart of unemployment over time for each selected country 
+  # and region and shows the gender distribution
+  output$Bar1 <- renderPlotly({
+    return(
+      UnemploymentBar(
+        BarData(df,
+                input$select2,
+                input$radio3
+        )
+      )
+    )
+  })
+  
+  # Creates a line graph of unemployment over time for each selected country in each selected region.
   output$BuildScatter <- renderPlotly({
     return(BuildCountryChart(FilterScatterCountry(df, input$radioCountry, input$selectCountry)))
   })
 })
+
+
