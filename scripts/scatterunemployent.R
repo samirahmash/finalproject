@@ -10,22 +10,20 @@ UrbanRuralScatter <- function(df) {
   )
   return(
     plot_ly(df, 
-      x = ~urban.mean,
-      y = ~rural.mean,
-      text = ~hover,
-      type = "scatter",
-      mode = "markers",
-      marker = list(size = 10,
-                    color = 'Gold',
-                    line = list(width = 2,
-                                color = 'Purple'))) %>% 
+            x = ~urban.mean,
+            y = ~rural.mean,
+            text = ~hover,
+            type = "scatter",
+            mode = "markers",
+            marker = list(size = 10,
+                          color = 'Gold',
+                          line = list(width = 2,
+                                      color = 'Purple'))) %>% 
       layout(title = 'Comparing Urban and Rural Unemployment',
              yaxis = list(title = "Rural Unemployment",
                           zeroline = FALSE),
              xaxis = list(title = "Urban Unemployement",
                           zeroline = FALSE))
-    )
+  )
   
 }
-
-

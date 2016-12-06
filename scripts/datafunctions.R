@@ -1,29 +1,33 @@
 # data from International Labor Organization on unemployment from 1990 to 2015, 
 # broken down by country, gender, age group, urban/rural, year
 # NOTE: Can't figure out how to make a general and shortened file path for some reason...
-data <- read.csv("./data/ilodata.csv")
-
 
 # load packages
 library(dplyr)
+data <- read.csv("./data/ilodata.csv")
 
-FilterMapData <- function(df, urbvar, gender, start.year, end.year, age) {
-  data <- filter(df, !is.na(Obs_Value)) 
+# filter down our data, excluding rows where there is no observed value
+data <- filter(data, !is.na(Obs_Value)) 
+
+only.countries <- as.list(select(data, Country_Label) %>%
+                  unique())
+
+# Filters the data for the for the by country line graph
+FilterScatterCountry <- function(df, urbvar, country) {
+  # Selects the columns we are interested in looking at
   short.data <- select(df, Country_Label, Country_Code, Sex_Item_Label, 
                        Classif1_Item_Label, Classif2_Item_Label, Time, Obs_Value)
-  mapping.data <- short.data %>% 
-    filter(Classif2_Item_Label == urbvar, 
-           Sex_Item_Label == gender, 
-           age == Classif1_Item_Label,
-           Time >= start.year,
-           Time <= end.year) %>% 
-    group_by(Country_Code) %>%
-    summarise(occurrences = n(),
-           mean.observations = mean(Obs_Value))
-  mapping.data <- mapping.data[!duplicated(mapping.data), ]
-  return (mapping.data)
-  
+    # Gets the rows that are from the selected region
+    country.data <- filter(short.data, Classif2_Item_Label == urbvar) %>%
+      
+      # Gets the rows containing all the age ranges
+      filter(Classif1_Item_Label == "Total") %>% 
+      # Gets the rows that have data for all genders
+      subset(Sex_Item_Label %in% 'Total') %>%
+      # Gets the rows that are about the selected country
+      filter(Country_Label == country)
+  # Removes all duplicant country data
+  country.data <- country.data[!duplicated(country.data), ]
+  return (country.data)
 }
-#mapping.data <- FilterMapData("National", "Total", "Total")
-# for some reason there are duplicates, this deals with that
 
