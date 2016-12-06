@@ -36,8 +36,10 @@ shinyUI(fluidPage(
                       selected = only.ages[1])
         ),
         mainPanel(
-          plotlyOutput("GlobalMap"),
-          plotlyOutput("ComboUnemployment")
+          tabsetPanel(
+            tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
+            tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
+          )
         )
       )
       ),

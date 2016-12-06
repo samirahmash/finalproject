@@ -22,7 +22,7 @@ UrbanRuralScatter <- function(df) {
       layout(title = "Comparing Urban and Rural Unemployment",
              yaxis = list(title = "Rural Unemployment",
                           zeroline = FALSE),
-             xaxis = list(title = "Urban Unemployement",
+             xaxis = list(title = "Urban Unemployment",
                           zeroline = FALSE))
     )
   

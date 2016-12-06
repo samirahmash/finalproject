@@ -16,7 +16,7 @@ UnemploymentBar <- function(df) {
       y = ~total.mean,
       name = "Total Unemployment Percentage"
       ) %>%
-    layout(yaxis = list(title = "Percentage Unemployedst"),
+    layout(yaxis = list(title = "Percentage Unemployment"),
            xaxis = list(title = "Year"),
            barmode = "group")
   return(gender.hist)
