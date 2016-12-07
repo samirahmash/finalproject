@@ -57,10 +57,11 @@ shinyUI(fluidPage(
                               selected = "National")
              ),
              mainPanel(
-               plotlyOutput("Bar1")
-               )
-    )
-    )
+               plotlyOutput("Bar1"))
+            )
+    ),
+    tabPanel(Summary)
+  )
 )
 )
-)
+

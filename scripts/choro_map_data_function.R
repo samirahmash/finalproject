@@ -5,7 +5,8 @@
 # load packages
 library(dplyr)
 data <- read.csv("./data/ilodata.csv")
-
+# unique(data$Survey_Label)
+# unique(data$Source_Label)
 # filter down our data, excluding rows where there is no observed value
 data <- filter(data, !is.na(Obs_Value)) 
 
