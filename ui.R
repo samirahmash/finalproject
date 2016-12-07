@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 
 source('./Scripts/buildScatter.R')
-source('./scripts/datafunctions.R')
+source('./scripts/line_graph_data_filter.R')
 
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
@@ -62,11 +62,13 @@ shinyUI(fluidPage(
                                              "Urban", 
                                              "National"),
                               selected = "National")
+               
                ),
                mainPanel(
                  plotlyOutput("Bar1")
                )
              )
+             
       ),
   
 
@@ -87,11 +89,12 @@ shinyUI(fluidPage(
                                            "Urban", 
                                            "National"),
                             selected = "National")
-             )
+             
           ),
           # Plots the graph for the unemployment rates
           mainPanel(
              plotlyOutput("BuildScatter")
+          )
           )
         )
       )
