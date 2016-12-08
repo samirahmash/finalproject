@@ -1,26 +1,35 @@
 library(shiny)
 library(plotly)
 source('./scripts/buildScatter.R')
-
+library(dplyr)
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
-only.countries <- select(df, Country_Label) %>% unique()
-only.ages <- select(df, Classif1_Item_Label) %>% unique()
+only.countries <- select(df, Country_Label) %>% 
+  unique() %>% 
+  arrange(Country_Label)
+only.ages <- select(df, Classif1_Item_Label) %>% 
+  unique() %>% 
+  arrange(Classif1_Item_Label)
+
 shinyUI(fluidPage(
+  # browser()
+  titlePanel("International Labor Statistics - Unemployment"),
   tabsetPanel(
     tabPanel("International Labor Organization - Visualized",
+          
       sidebarLayout(
+        
         sidebarPanel(
           radioButtons("radio1","Gender", 
-                       choices = list("Female",
+                       choices = list("Total",
                                       "Male",
-                                      "Total"),
+                                      "Female"),
                        selected = "Total"),
           
           radioButtons("radio2", "Area",
-                        choices = list("Rural",
+                        choices = list("National",
                                        "Urban", 
-                                       "National"),
+                                       "Rural"),
                         selected = "National"),
         
           sliderInput("slider2", "Slider Range", 
@@ -35,11 +44,13 @@ shinyUI(fluidPage(
           selectInput("select", 
                       label = h3("Select an Age Range"),
                       choices = only.ages, 
-                      selected = only.ages[1])
+                      selected = "Total")
         ),
         mainPanel(
-          plotlyOutput("GlobalMap"),
-          plotlyOutput("ComboUnemployment")
+          tabsetPanel(
+            tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
+            tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
+          )
         )
       )
       ),
@@ -51,9 +62,9 @@ shinyUI(fluidPage(
                              choices = only.countries, 
                              selected = only.countries[1]),
                  radioButtons("radio3", "Area",
-                              choices = list("Rural",
+                              choices = list("National",
                                              "Urban", 
-                                             "National"),
+                                             "Rural"),
                               selected = "National")
              ),
              mainPanel(
