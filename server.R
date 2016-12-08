@@ -1,10 +1,12 @@
 # Final Project Team 4
+
+# load in libraries
 library(shiny)
 library(dplyr)
 library(rsconnect)
-# data from International Labor Organization on unemployment from 1990 to 2015, 
-# broken down by country, gender, age group, urban/rural, year
+library(knitr)
 
+# load in scripts
 source('./scripts/buildScatter.r')
 source('./scripts/line_graph_data_filter.R')
 source('./scripts/choro_map_creation_function.R')
@@ -13,8 +15,12 @@ source('./scripts/scatter1_creation_function.R')
 source('./scripts/scatter1_data_function.R')
 source('./scripts/bar_creation_function.R')
 source('./scripts/bar_data_function.R')
+
+# data from International Labor Organization on unemployment from 1990 to 2015, 
+# broken down by country, gender, age group, urban/rural, year
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
+# our shiny app
 shinyServer(function(input, output) { 
  
   # Creates a choropleth map that looks at the unemployment rates in each country.
@@ -62,6 +68,11 @@ shinyServer(function(input, output) {
   # Creates a line graph of unemployment over time for each selected country in each selected region.
   output$BuildScatter <- renderPlotly({
     return(BuildCountryChart(FilterScatterCountry(df, input$radioCountry, input$selectCountry)))
+  })
+  
+  # renders a knit .rmd file
+  output$markdown <- renderUI({
+    HTML(markdown::markdownToHTML(knit('Summary.Rmd', quiet = TRUE)))
   })
 })
 

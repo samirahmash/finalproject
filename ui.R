@@ -1,18 +1,5 @@
 library(shiny)
 library(plotly)
-# <<<<<<< HEAD
-# source('./scripts/buildScatter.R')
-# library(dplyr)
-# df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
-# 
-# only.countries <- select(df, Country_Label) %>% 
-#   unique() %>% 
-#   arrange(Country_Label)
-# only.ages <- select(df, Classif1_Item_Label) %>% 
-#   unique() %>% 
-#   arrange(Classif1_Item_Label)
-# =======
-
 source('./Scripts/buildScatter.R')
 source('./scripts/line_graph_data_filter.R')
 
@@ -23,7 +10,6 @@ only.countries <- select(df, Country_Label) %>% unique() %>% arrange(Country_Lab
 only.ages <- select(df, Classif1_Item_Label) %>% unique() %>% arrange(Classif1_Item_Label)
 
 shinyUI(fluidPage(
-  # browser()
   titlePanel("International Labor Statistics - Unemployment"),
   tabsetPanel(
     tabPanel("International Labor Organization - Visualized",
@@ -60,13 +46,9 @@ shinyUI(fluidPage(
         mainPanel(
           tabsetPanel(
             tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
-# <<<<<<< HEAD
-#             tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
-#           )
-# =======
+
             tabPanel("Scatter with 45 degree line", plotlyOutput("ComboUnemployment"))
             )
-# >>>>>>> 801f6bc7c3c1327f01a7f7af210eb82efabebcd7
         )
         )
     ),
@@ -85,18 +67,6 @@ shinyUI(fluidPage(
                                              "Urban", 
                                              "Rural"),
                               selected = "National")
-# <<<<<<< HEAD
-#              ),
-#              mainPanel(
-#                plotlyOutput("Bar1"))
-#             )
-#     ),
-#     tabPanel(Summary)
-#   )
-# )
-# )
-# =======
-               
                ),
                mainPanel(
                  plotlyOutput("Bar1")
@@ -105,8 +75,6 @@ shinyUI(fluidPage(
              
       ),
   
-
-
       # Adds the tab for the unemployment by country
       tabPanel("Internation Labor Scatterplot",
           sidebarLayout(
@@ -130,13 +98,13 @@ shinyUI(fluidPage(
              plotlyOutput("BuildScatter")
           )
           )
-        )
-      )
+      ),
+    tabPanel("Summary",
+             fluidRow(
+               column(12, 
+                      uiOutput('markdown'))
+             )
     )
+  )
 )
-         
-    
-
-
-# >>>>>>> 801f6bc7c3c1327f01a7f7af210eb82efabebcd7
-
+)
