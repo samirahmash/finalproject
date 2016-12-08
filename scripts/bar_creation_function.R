@@ -1,6 +1,9 @@
+# Loads packages to use plotly and dplyr functions.
 library(plotly)
 library(dplyr)
 
+# Creates function to make a plotly bar chart with male, female, and total unemployment percentages in
+# particular countries.
 UnemploymentBar <- function(df) {
   gender.hist <- plot_ly(df, 
                          x = ~Time,
