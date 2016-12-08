@@ -7,8 +7,8 @@ source('./scripts/line_graph_data_filter.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 # Gets the countries names
-only.countries <- select(df, Country_Label) %>% unique()
-only.ages <- select(df, Classif1_Item_Label) %>% unique()
+only.countries <- select(df, Country_Label) %>% unique() %>% arrange(Country_Label)
+only.ages <- select(df, Classif1_Item_Label) %>% unique() %>% arrange(Classif1_Item_Label)
 
 shinyUI(fluidPage(
   tabsetPanel(
@@ -16,15 +16,15 @@ shinyUI(fluidPage(
       sidebarLayout(
         sidebarPanel(
           radioButtons("radio1","Gender", 
-                       choices = list("Female",
+                       choices = list("Total",
                                       "Male",
-                                      "Total"),
+                                      "Female"),
                        selected = "Total"),
           
           radioButtons("radio2", "Area",
-                        choices = list("Rural",
+                        choices = list("National",
                                        "Urban", 
-                                       "National"),
+                                       "Rural"),
                         selected = "National"),
         
           sliderInput("slider2", "Slider Range", 
@@ -39,13 +39,15 @@ shinyUI(fluidPage(
           selectInput("select", 
                       label = h3("Select an Age Range"),
                       choices = only.ages, 
-                      selected = only.ages[1])
+                      selected = "Total")
         ),
         mainPanel(
-          plotlyOutput("GlobalMap"),
-          plotlyOutput("ComboUnemployment")
+          tabsetPanel(
+            tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
+            tabPanel("Scatter with 45 degree line", plotlyOutput("ComboUnemployment"))
+            )
         )
-      )
+        )
     ),
     tabPanel("International Labor Grouped Bars by Country",
              sidebarLayout(
