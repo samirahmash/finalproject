@@ -65,10 +65,10 @@ shinyUI(fluidPage(
         mainPanel(
           tabsetPanel(
             tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
-            tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
-          )
+            tabPanel("Scatter, with 45 degree line", plotlyOutput("ComboUnemployment"))
+            )
         )
-      )
+        )
     ),
     
     # Creates a bar chart for each country to show male, female, and total unemployment percentages for a 
