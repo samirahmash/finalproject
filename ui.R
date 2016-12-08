@@ -1,15 +1,26 @@
 library(shiny)
 library(plotly)
-source('./scripts/buildScatter.R')
-library(dplyr)
+# <<<<<<< HEAD
+# source('./scripts/buildScatter.R')
+# library(dplyr)
+# df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
+# 
+# only.countries <- select(df, Country_Label) %>% 
+#   unique() %>% 
+#   arrange(Country_Label)
+# only.ages <- select(df, Classif1_Item_Label) %>% 
+#   unique() %>% 
+#   arrange(Classif1_Item_Label)
+# =======
+
+source('./Scripts/buildScatter.R')
+source('./scripts/line_graph_data_filter.R')
+
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
-only.countries <- select(df, Country_Label) %>% 
-  unique() %>% 
-  arrange(Country_Label)
-only.ages <- select(df, Classif1_Item_Label) %>% 
-  unique() %>% 
-  arrange(Classif1_Item_Label)
+# Gets the countries names
+only.countries <- select(df, Country_Label) %>% unique() %>% arrange(Country_Label)
+only.ages <- select(df, Classif1_Item_Label) %>% unique() %>% arrange(Classif1_Item_Label)
 
 shinyUI(fluidPage(
   # browser()
@@ -49,30 +60,83 @@ shinyUI(fluidPage(
         mainPanel(
           tabsetPanel(
             tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
-            tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
-          )
+# <<<<<<< HEAD
+#             tabPanel("Scatter" , plotlyOutput("ComboUnemployment"))
+#           )
+# =======
+            tabPanel("Scatter with 45 degree line", plotlyOutput("ComboUnemployment"))
+            )
+# >>>>>>> 801f6bc7c3c1327f01a7f7af210eb82efabebcd7
         )
-      )
-      ),
+        )
+    ),
     tabPanel("International Labor Grouped Bars by Country",
              sidebarLayout(
                sidebarPanel(
+                 
+                 # Allows you to select a country
                  selectInput("select2", 
                              label = h3("Select a Country"),
                              choices = only.countries, 
                              selected = only.countries[1]),
+                 
                  radioButtons("radio3", "Area",
                               choices = list("National",
                                              "Urban", 
                                              "Rural"),
                               selected = "National")
-             ),
-             mainPanel(
-               plotlyOutput("Bar1"))
-            )
-    ),
-    tabPanel(Summary)
-  )
+# <<<<<<< HEAD
+#              ),
+#              mainPanel(
+#                plotlyOutput("Bar1"))
+#             )
+#     ),
+#     tabPanel(Summary)
+#   )
+# )
+# )
+# =======
+               
+               ),
+               mainPanel(
+                 plotlyOutput("Bar1")
+               )
+             )
+             
+      ),
+  
+
+
+      # Adds the tab for the unemployment by country
+      tabPanel("Internation Labor Scatterplot",
+          sidebarLayout(
+            sidebarPanel(  
+               # Allows you to select a country
+               selectInput("selectCountry", 
+                           label = h3("Select a Country"),
+                           choices = only.countries, 
+                           selected = only.countries[1]),
+                 
+               # Allows you to select a region
+               radioButtons("radioCountry", "Area",
+                            choices = list("Rural",
+                                           "Urban", 
+                                           "National"),
+                            selected = "National")
+             
+          ),
+          # Plots the graph for the unemployment rates
+          mainPanel(
+             plotlyOutput("BuildScatter")
+          )
+          )
+        )
+      )
+    )
 )
-)
+         
+    
+
+
+# >>>>>>> 801f6bc7c3c1327f01a7f7af210eb82efabebcd7
 

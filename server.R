@@ -1,10 +1,12 @@
 # Final Project Team 4
 library(shiny)
 library(dplyr)
+library(rsconnect)
 # data from International Labor Organization on unemployment from 1990 to 2015, 
 # broken down by country, gender, age group, urban/rural, year
-# NOTE: Can't figure out how to make a general and shortened file path for some reason...
 
+source('./scripts/buildScatter.r')
+source('./scripts/line_graph_data_filter.R')
 source('./scripts/choro_map_creation_function.R')
 source('./scripts/choro_map_data_function.R')
 source('./scripts/scatter1_creation_function.R')
@@ -13,9 +15,9 @@ source('./scripts/bar_creation_function.R')
 source('./scripts/bar_data_function.R')
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
-
 shinyServer(function(input, output) { 
-  # Render a plotly object that returns your scatter on the UI's radio button and select indicator
+ 
+  # Creates a choropleth map that looks at the unemployment rates in each country.
   output$GlobalMap <- renderPlotly({
       return(
         WorldMap(
@@ -28,9 +30,9 @@ shinyServer(function(input, output) {
                       )
         )
       )
-      
   })
-
+  
+  # Plots a scatter that compares urban and rural unemployment rates
   output$ComboUnemployment <- renderPlotly({
     return(
       UrbanRuralScatter(
@@ -43,6 +45,9 @@ shinyServer(function(input, output) {
       )
     )
   })
+  
+  # Creats a bar chart of unemployment over time for each selected country 
+  # and region and shows the gender distribution
   output$Bar1 <- renderPlotly({
     return(
       UnemploymentBar(
@@ -53,4 +58,11 @@ shinyServer(function(input, output) {
       )
     )
   })
+  
+  # Creates a line graph of unemployment over time for each selected country in each selected region.
+  output$BuildScatter <- renderPlotly({
+    return(BuildCountryChart(FilterScatterCountry(df, input$radioCountry, input$selectCountry)))
+  })
 })
+
+
