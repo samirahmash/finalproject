@@ -27,5 +27,5 @@ WorldMap <- function(df) {
       title = "Unemployment Rates Around the World",
       geo = list(scope = "world")
       )
-  )
+   )
 }

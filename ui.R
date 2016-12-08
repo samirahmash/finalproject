@@ -1,22 +1,21 @@
-# Loads packages to use shiny and plotly functions when publishing scripts.
+# Loads packages to use their functions when publishing scripts.
 library(shiny)
 library(plotly)
+library(dplyr)
+
+# Identifies sources in scripts file.
+source('./Scripts/buildScatter.R')
+source('./scripts/line_graph_data_filter.R')
 
 # Reads rural and urban unemployment data from International Labor Organization into dataframe.
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
 # Pares down data by country name, urban or rural status, and gender.
-only.countries <- select(df, Country_Label) %>% unique()
-only.ages <- select(df, Classif1_Item_Label) %>% unique()
-
-library(dplyr)
-df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
-
-only.countries <- select(df, Country_Label) %>% 
-  unique() %>% 
+only.countries <- select(df, Country_Label) %>%
+  unique() %>%
   arrange(Country_Label)
-only.ages <- select(df, Classif1_Item_Label) %>% 
-  unique() %>% 
+only.ages <- select(df, Classif1_Item_Label) %>%
+  unique() %>%
   arrange(Classif1_Item_Label)
 
 shinyUI(fluidPage(
@@ -70,7 +69,7 @@ shinyUI(fluidPage(
           )
         )
       )
-      ),
+    ),
     
     # Creates a bar chart for each country to show male, female, and total unemployment percentages for a 
     # specified country, by urban, rural, or national status.
@@ -96,8 +95,33 @@ shinyUI(fluidPage(
              mainPanel(
                plotlyOutput("Bar1")
                )
+             )
+      ),
+  
+      # Adds the tab for the unemployment by country.
+      tabPanel("International Labor Scatterplot",
+          sidebarLayout(
+            sidebarPanel(  
+               # Allows users to select a country.
+               selectInput("selectCountry", 
+                           label = h3("Select a Country"),
+                           choices = only.countries, 
+                           selected = only.countries[1]),
+                 
+               # Allows users to select a region.
+               radioButtons("radioCountry", "Area",
+                            choices = list("Rural",
+                                           "Urban", 
+                                           "National"),
+                            selected = "National")
+             
+          ),
+          # Plots the graph for the unemployment rates.
+          mainPanel(
+             plotlyOutput("BuildScatter")
+          )
+          )
+        )
+      )
     )
-    )
-)
-)
-)
+ )

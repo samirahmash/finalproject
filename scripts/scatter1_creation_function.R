@@ -24,10 +24,11 @@ UrbanRuralScatter <- function(df) {
       layout(title = "Comparing Urban and Rural Unemployment",
              yaxis = list(title = "Rural Unemployment",
                           zeroline = FALSE),
-             xaxis = list(title = "Urban Unemployment",
-                          zeroline = FALSE))
+
+             xaxis = list(title = "Urban Unemployement",
+                          zeroline = FALSE)) %>% 
+    add_trace(df, y = df$rural.mean, x = df$rural.mean, mode = 'lines')
     )
-  
 }
 
 
