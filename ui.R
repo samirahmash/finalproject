@@ -8,24 +8,38 @@ df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 # Pares down data by country name, urban or rural status, and gender.
 only.countries <- select(df, Country_Label) %>% unique()
 only.ages <- select(df, Classif1_Item_Label) %>% unique()
+
+library(dplyr)
+df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
+
+only.countries <- select(df, Country_Label) %>% 
+  unique() %>% 
+  arrange(Country_Label)
+only.ages <- select(df, Classif1_Item_Label) %>% 
+  unique() %>% 
+  arrange(Classif1_Item_Label)
+
 shinyUI(fluidPage(
+  titlePanel("International Labor Statistics - Unemployment"),
   tabsetPanel(
     tabPanel("International Labor Organization - Visualized",
+             
       sidebarLayout(
+        
         sidebarPanel(
           
           # Uses radio buttons to choose gender, between male, female, and total unemployment percentages for a given country.
           radioButtons("radio1","Gender", 
-                       choices = list("Female",
+                       choices = list("Total",
                                       "Male",
-                                      "Total"),
+                                      "Female"),
                        selected = "Total"),
           
           # Uses radio buttons to choose urban, rural, or national unemployment percentages for a given country.      
           radioButtons("radio2", "Area",
-                        choices = list("Rural",
+                        choices = list("National",
                                        "Urban", 
-                                       "National"),
+                                       "Rural"),
                         selected = "National"),
           
           # User can choose a range of years to view unemployment percentages for, internationally.
@@ -43,7 +57,7 @@ shinyUI(fluidPage(
           selectInput("select", 
                       label = h3("Select an Age Range"),
                       choices = only.ages, 
-                      selected = only.ages[1])
+                      selected = "Total")
         ),
         
         # Publishes functions from scripts files to display a Choropleth map of international unemployment
@@ -72,9 +86,9 @@ shinyUI(fluidPage(
                  
                  # Users choose what area data they want to view gender unemployment information from radio buttons.
                  radioButtons("radio3", "Area",
-                              choices = list("Rural",
+                              choices = list("National",
                                              "Urban", 
-                                             "National"),
+                                             "Rural"),
                               selected = "National")
              ),
              
