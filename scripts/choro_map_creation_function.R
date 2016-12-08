@@ -9,7 +9,7 @@ WorldMap <- function(df) {
     df[2, ] <- c("USA", 0, 0)
    }  
   
-  # Markers with the country name, percentage unemployed, years, and gender.
+  # Creates markers with the country name, percentage unemployed, years, and gender.
   df$hover <- with(df, paste("Country:", Country_Code, '<br>', 
                              "Percentage Unemployed:", mean.observations, '<br>',
                              "Total Years and Genders:", occurrences)

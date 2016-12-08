@@ -1,7 +1,9 @@
+# Loads plotly and dplyr packages to use their functions to manipulate data.
 library(plotly)
 library(dplyr)
 
-
+# Creates function for with hovering markers for points on a scatter plot, representing urban and rural
+# unemployment in different countries.
 UrbanRuralScatter <- function(df) {
   df$hover = with(df, paste("Country:", Country_Label, '<br>', 
                             "Percentage of Urban Unemployment:", urban.mean, '<br>',
