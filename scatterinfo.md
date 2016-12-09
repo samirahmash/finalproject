@@ -1,0 +1,1 @@
+This scatterplot displays the urban and rural means of the countries in our dataset. The 'redness' of the dots represent the deviation from equal means in unemployment. Meaning that that particular country has a significant difference between the rural and urban unemployment percentages.

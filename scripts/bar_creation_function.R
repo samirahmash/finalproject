@@ -1,6 +1,9 @@
+# this returns a bar graph that conveys unemployment
+
 library(plotly)
 library(dplyr)
 
+# outputs a bar graph showing the unemployment rates of male, female, and total of each country
 UnemploymentBar <- function(df) {
   gender.hist <- plot_ly(df, 
                          x = ~Time,

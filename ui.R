@@ -1,3 +1,6 @@
+# this is the ui file, it works in tandem with the server.r to take in inputs
+# from the user to display interactive visualizations.
+
 library(shiny)
 library(plotly)
 source('./Scripts/buildScatter.R')
@@ -5,7 +8,7 @@ source('./scripts/line_graph_data_filter.R')
 
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)
 
-# Gets the countries names
+# gets the countries names
 only.countries <- select(df, Country_Label) %>% unique() %>% arrange(Country_Label)
 only.ages <- select(df, Classif1_Item_Label) %>% unique() %>% arrange(Classif1_Item_Label)
 
@@ -60,7 +63,7 @@ shinyUI(fluidPage(
                  selectInput("select2", 
                              label = h3("Select a Country"),
                              choices = only.countries, 
-                             selected = only.countries[1]),
+                             selected = 'Austria'),
                  
                  radioButtons("radio3", "Area",
                               choices = list("National",
@@ -83,7 +86,7 @@ shinyUI(fluidPage(
                selectInput("selectCountry", 
                            label = h3("Select a Country"),
                            choices = only.countries, 
-                           selected = only.countries[1]),
+                           selected = "Austria"),
                  
                # Allows you to select a region
                radioButtons("radioCountry", "Area",

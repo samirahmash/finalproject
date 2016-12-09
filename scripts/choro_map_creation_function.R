@@ -1,3 +1,6 @@
+# creates a worldmap with plotly that takes in a dataframe and conveys different color
+# saturation per country based on the mean.observations variable
+
 library(plotly)
 library(dplyr)
 

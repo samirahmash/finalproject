@@ -1,4 +1,6 @@
 # Final Project Team 4
+# This is our shiny app, it works in tandem with our ui.r file to take in user input and
+# output visual displays such as maps and graphs
 
 # load in libraries
 library(shiny)
