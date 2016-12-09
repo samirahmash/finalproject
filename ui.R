@@ -3,7 +3,7 @@
 
 library(shiny)
 library(plotly)
-source('./Scripts/buildScatter.R')
+source('./scripts/buildScatter.R')
 source('./scripts/line_graph_data_filter.R')
 
 df <- read.csv("./data/ilodata.csv", stringsAsFactors = FALSE)

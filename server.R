@@ -9,7 +9,7 @@ library(rsconnect)
 library(knitr)
 
 # load in scripts
-source('./scripts/buildScatter.r')
+source('./scripts/buildscatter.r')
 source('./scripts/line_graph_data_filter.R')
 source('./scripts/choro_map_creation_function.R')
 source('./scripts/choro_map_data_function.R')
