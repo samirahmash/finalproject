@@ -50,7 +50,7 @@ shinyUI(fluidPage(
           tabsetPanel(
             tabPanel("Choropleth Map", plotlyOutput("GlobalMap")),
 
-            tabPanel("Scatter with 45 degree line", plotlyOutput("ComboUnemployment"))
+            tabPanel("Scatter", plotlyOutput("ComboUnemployment"))
             )
         )
         )

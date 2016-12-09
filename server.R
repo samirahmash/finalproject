@@ -74,7 +74,7 @@ shinyServer(function(input, output) {
   
   # renders a knit .rmd file
   output$markdown <- renderUI({
-    HTML(markdown::markdownToHTML(knit('Summary.Rmd', quiet = TRUE)))
+    #HTML(markdown::markdownToHTML(knit('Summary.Rmd', quiet = TRUE)))
   })
 })
 
