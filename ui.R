@@ -4,7 +4,7 @@ library(plotly)
 library(dplyr)
 
 # Identifies sources in scripts file.
-source('./Scripts/buildScatter.R')
+source('./Scripts/line_graph_creation_function.R')
 source('./scripts/line_graph_data_filter.R')
 
 # Reads rural and urban unemployment data from International Labor Organization into dataframe.

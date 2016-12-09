@@ -4,7 +4,7 @@ library(dplyr)
 library(rsconnect)
 
 # Sources scripts files to use their functions that manipulate the unemployment data.
-source('./scripts/buildScatter.r')
+source('./scripts/line_graph_creation_function.R')
 source('./scripts/line_graph_data_filter.R')
 source('./scripts/choro_map_creation_function.R')
 source('./scripts/choro_map_data_function.R')
