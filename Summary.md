@@ -12,7 +12,7 @@ output: html_document
 
 For this project we used data collected by the International Labor Organization, an organization with the mission of promoting social justice and internationally recognized human and labor rights.
 
-The ILO was created as a result of the treaty of Versailles following the end of World War I. 187 countries are members of the ILO, meaning they partake in the International Labor Conference, are supervised by the ILO and collaborate with ILO's projects and research. To learn more about the ILO, check here (insert hyperlink).
+The ILO was created as a result of the treaty of Versailles following the end of World War I. 187 countries are members of the ILO, meaning they partake in the International Labor Conference, are supervised by the ILO and collaborate with ILO's projects and research. To learn more about the ILO, [check here.](http://www.ilo.org/global/about-the-ilo/lang--en/index.htm)
 
 ## Urbanization and Unemployment
 
